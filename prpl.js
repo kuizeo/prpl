@@ -10,6 +10,7 @@ function prpl(promise) {
     },
 
     // other methods of a promise
-    ...promise,
+    catch: promise.catch,
+    finally: promise.finally,
   };
 }
