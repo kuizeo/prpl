@@ -2,15 +2,17 @@ function prpl(promise) {
   // PRPL: PRomises PLus™
 
   return {
-    // promise-ish object, I guess
+    // object made to replicate a promise
 
-    then: (...extra_args) => {
-      // calls first argument to .then with arguments to resolve & other args
-      promise.then((...args) => extra_args[0](...args, ...extra_args.slice(1)));
-    },
+    then: (...extra) =>
+      promise.then((...args) => extra[0](...args, ...extra.slice(1))),
 
-    // other methods of a promise
-    catch: promise.catch,
-    finally: promise.finally,
+    catch: (...extra) =>
+      promise.catch((...args) => extra[0](...args, ...extra.slice(1))),
+
+    finally: (...extra) => 
+      promise.finally((...args) => extra[0](...args, ...extra.slice(1))),
   };
 }
+
+module.exports = prpl;
